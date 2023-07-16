@@ -9,12 +9,12 @@ import './main.styles.scss'
 
 
 export default function Movie() {
-  // const selectedMovieId = localStorage.getItem("selectedMovieId");
+  const selectedMovieId = typeof window !== "undefined" ? localStorage.getItem("selectedMovieId") : null;
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchMovie = async () => {
-      let endpoint = `movie/${localStorage.getItem("selectedMovieId")}`;
+      let endpoint = `movie/${selectedMovieId}`;
       try {
         const { data } = await tmdb.get(endpoint);
         console.log(data);
@@ -27,7 +27,7 @@ export default function Movie() {
     };
     setLoading(true);
     fetchMovie();
-  }, [localStorage.getItem("selectedMovieId")]);
+  }, []);
 
   return (
     <div className="movie-container">
