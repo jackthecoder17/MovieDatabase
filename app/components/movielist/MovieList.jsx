@@ -160,7 +160,7 @@ export default function MovieList() {
               className="mb-5 flex flex-col justify-between main-col"
             >
               <Link href={`/movie?${movie.title}`}>
-                <div className="image">
+                <div className="image mb-4">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     alt=""
