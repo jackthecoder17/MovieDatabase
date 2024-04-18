@@ -1,30 +1,24 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import "./movie.styles.scss";
 import leftarrow from "../../assets/left.svg";
-import photo from "../../assets/details_anime.png";
-import tmdb from "@/app/api/tmdb";
 export default function MovieDetail({ movie }) {
-  const searchQuery = new URLSearchParams(window.location.search).get(
-    "searchQuery"
-  );
 
   const handleReturnToSearch = (e) => {
     e.preventDefault()
     window.history.back();
   }
-  useEffect(() => {
-    const fetchSimilarMovie = async () => {
-      try {
-        const { data } = await tmdb.get(`movie/${movie.id}/similar`);
-        console.log(data.results);
-      } catch (error) {
-        console.log("Error fetching similar movies:", error);
-      }
-    };
-    fetchSimilarMovie();
-  }, [movie.id]);
+  // useEffect(() => {
+  //   const fetchSimilarMovie = async () => {
+  //     try {
+  //       const { data } = await tmdb.get(`movie/${movie.id}/similar`);
+  //       console.log(data.results);
+  //     } catch (error) {
+  //       console.log("Error fetching similar movies:", error);
+  //     }
+  //   };
+  //   fetchSimilarMovie();
+  // }, [movie.id]);
   return (
     <div className="movie-details w-full">
       <div className="p-5">
