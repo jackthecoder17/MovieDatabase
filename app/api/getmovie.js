@@ -1,11 +1,11 @@
-import { Apimanager } from "./tmdb";
+import { fetchMovie, fetchMovies } from "./tmdb";
 
 export const getMovie = async (id) => {
   try {
-    const { data } = await Apimanager.get(`movie/${id}`);
-    return data;
+    return await fetchMovie(id);
   } catch (error) {
     console.log("Error fetching movie:", error);
+    throw error;
   }
 };
 
@@ -13,27 +13,10 @@ export const getMovie = async (id) => {
 
 export const getAllMovies = async ({ with_genres, query, page }) => {
   try {
-    let endpoint;
-    if (query) {
-      endpoint = "search/movie";
-    } else if (with_genres) {
-      endpoint = "discover/movie";
-    } else {
-      endpoint = "movie/popular";
-    }
-
-    console.log(endpoint);
-    const { data } = await Apimanager.get(endpoint, {
-      params: {
-        query,
-        page,
-        with_genres,
-      },
-    });
-    return data;
+    return await fetchMovies({ with_genres, query, page });
   } catch (error) {
     console.log("Error fetching movies:", error);
-    return []; // Return an empty array if the API request fails
+    return { results: [], total_pages: 0, page: 1, total_results: 0 };
   }
 };
 

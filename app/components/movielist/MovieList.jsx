@@ -1,16 +1,13 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import Image from "next/image";
-import photo from "../../assets/hero.png";
 import "./MovieList.styles.scss";
-import Link from "next/link";
-import tmdb from "@/app/api/tmdb";
 import Loader from "../loader";
 import { useSearchParams } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { useMovies } from "@/app/api/query/useMovie";
 import "react-toastify/dist/ReactToastify.css";
+import MovieCard from "./MovieCard";
 
 export default function MovieList() {
   // const [movies, setMovies] = useState([]);
@@ -65,10 +62,6 @@ export default function MovieList() {
     setPage((prevPage) => prevPage - 1);
   };
 
-  const handleMovieClick = (id) => {
-    localStorage.setItem("selectedMovieId", id);
-    console.log(id);
-  };
   const handleGenreSelect = (genreId) => {
     console.log(genreId);
     setSelectedGenre(genreId);
@@ -124,40 +117,21 @@ export default function MovieList() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4 p-5 row justify-center items-center">
-          {movies?.results?.map((movie) => (
-            <div
-              key={movie.id}
-              className="mb-5 flex flex-col justify-between main-col"
-            >
-              <Link href={`/movie?movieId=${movie.id}`}>
-                <div className="image mb-4">
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    alt=""
-                    height={500}
-                    width={300}
-                    className="rounded-3xl mb-2"
-                    onClick={() => handleMovieClick(movie.id)}
-                  />
+        <>
+          {movies?.results?.length ? (
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4 p-5 row justify-center items-center">
+              {movies.results.map((movie) => (
+                <div key={movie.id} className="mb-5 flex flex-col justify-between main-col">
+                  <MovieCard movie={movie} />
                 </div>
-
-                <h1 className="font-bold text-center">
-                  {movie.title}{" "}
-                  <span>{movie.release_date.substring(0, 4)}</span>
-                </h1>
-                {/* <button className='p-3 hover:bg-transparent rounded-3xl searchbtn w-full focus:border-slate-400' onClick={()=> Addwatchlist(movie.id)}>
-                  Add to Watchlist
-                </button> */}
-              </Link>
+              ))}
             </div>
-          ))}
-        </div>
+          ) : (
+            <h1 className="text-3xl font-bold text-center py-20">No movies found</h1>
+          )}
+        </>
       )}
-      {movies?.length === 0 && (
-        <h1 className="text-3xl font-bold text-center">No movies found</h1>
-      )}
-      {movies?.length > 0 && (
+      {movies?.results?.length > 0 && (
         <div className="pagination flex align-middle w-full justify-center gap-3">
           <button
             className="pagination-button"
@@ -167,11 +141,11 @@ export default function MovieList() {
             Previous
           </button>
           <span className="pagination-info">
-            Page {page} of {totalPages}
+            Page {page} of {movies.total_pages}
           </span>
           <button
             className="pagination-button"
-            disabled={page === totalPages}
+            disabled={page === movies.total_pages}
             onClick={handleNextPage}
           >
             Next

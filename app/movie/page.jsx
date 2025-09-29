@@ -1,28 +1,16 @@
 "use client";
-import React from "react";
-import SearchBar from "../components/searchbar/SearchBar";
-import MovieDetail from "@/app/components/moviedetail/MovieDetail";
-import { useSearchParams } from "next/navigation";
-import Loader from "../components/loader";
-import { useMovie } from "../api/query/useMovie";
-import './main.styles.scss'
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-
-export default function Movie() {
+export default function LegacyMovieRedirect() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const movieId = searchParams.get("movieId");
+  const id = searchParams.get("movieId");
 
-  const { data: movie, isLoading: loading } = useMovie(movieId);
-  return (
-    <div className="movie-container">
-      <SearchBar />
-      {loading ? (
-        <Loader />
-      ) : (
-        <MovieDetail movie={movie} />
-      )}
-    </div>
-  );
+  useEffect(() => {
+    if (id) router.replace(`/movie/${id}`);
+    else router.replace("/");
+  }, [id, router]);
+
+  return null;
 }
-
-// (<MovieDetail movie={movie}/>)

@@ -17,6 +17,9 @@ export default function SearchBar() {
     router.push('/?searchQuery='+query)
     // searchParams.set('searchQuery', query)
   }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  }
 
   return (
     <nav className='w-full nav'>
@@ -24,12 +27,11 @@ export default function SearchBar() {
         <div className='nav-logo'>
           <a href='/'>MovieDB</a>
         </div>
-        <div className='nav-search w-[65%] flex gap-6'>
-        <button onClick={handleSearch}>
-          Search
-        </button>
-          <input type='text' placeholder='Search for a movie' value={query} onChange={handleInputChange} className='p-3 bg-transparent rounded-[6px] searchbtn w-full focus:border-slate-400'/>
-         
+        <div className='nav-search w-[65%] flex gap-3'>
+          <input aria-label='Search movies' onKeyDown={handleKeyDown} type='text' placeholder='Search for a movie' value={query} onChange={handleInputChange} className='p-3 bg-transparent rounded-[6px] searchbtn w-full focus:border-slate-400'/>
+          <button onClick={handleSearch} className='px-4 py-2 rounded-md bg-cyan-600 hover:bg-cyan-500 transition-colors'>
+            Search
+          </button>
         </div>
       
       </div>

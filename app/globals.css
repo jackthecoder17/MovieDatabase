@@ -7,3 +7,19 @@ body{
   background-color: #192026;
   color: #fff;
 }
+
+/* Generic buttons */
+.pagination-button{
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: #334155; /* slate-700 */
+  color: #fff;
+  transition: background-color 150ms ease-in-out, opacity 150ms ease-in-out;
+}
+.pagination-button:hover{ background-color: #475569; } /* slate-600 */
+.pagination-button:disabled{ opacity: 0.5; cursor: not-allowed; }
+.pagination-info{ color: #cbd5e1; padding: 0.5rem 0; } /* slate-300 */
+
+/* Inputs */
+.searchbtn{ border: 1px solid #475569; outline: none; }
+.searchbtn:focus{ box-shadow: 0 0 0 2px #22d3ee55; } /* cyan-400 ring-ish */
