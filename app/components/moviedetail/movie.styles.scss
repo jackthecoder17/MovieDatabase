@@ -1,6 +1,6 @@
 
 .backbtn{
-  background-color: #374151;
+  background-color: #1e293b;
 
   @media screen and (max-width:400px) {
     span{
@@ -36,14 +36,16 @@
     .info {
       display: flex;
       flex-flow: column;
+      gap: 0.25rem;
       h1{
-        font-family: 'Roboto',sans-serif;
-        font-size: 1.1rem;
+        font-family: 'Poppins',sans-serif;
+        font-size: 1rem;
+        color: #f1f5f9;
       }
       span{
-        font-family: 'Roboto',sans-serif;
+        font-family: 'Poppins',sans-serif;
         font-size: 1rem;
-        color: #868686;
+        color: #94a3b8;
       }
 
     //   align-self: center;
@@ -59,12 +61,13 @@
 
 .more_info{
   h1{
-    font-family: 'Roboto',sans-serif;
-    font-size: 2rem;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1.5rem;
   }
   p{
-    font-family: 'Roboto',sans-serif;
+    font-family: 'Poppins',sans-serif;
     font-size: 1rem;
-    color: #868686;
+    color: #94a3b8;
+    line-height: 1.7;
   }
 }

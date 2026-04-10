@@ -10,8 +10,7 @@
         font-size: 1.75rem;
         font-family: "Poppins", sans-serif;
         color: #ffffff;
-
-        
+        letter-spacing: -0.02em;
       }
     }
     .nav-search {
@@ -19,10 +18,10 @@
         width: 100%;
       }
       input {
-        background-color: #374151;
+        background-color: transparent;
 
         &::placeholder {
-          color: #868686;
+          color: #94a3b8;
         }
       }
     }
